@@ -24,4 +24,7 @@ en:
   'profile':                'Profile'
   "user's posts":           "User's posts"
   'user':                   'User'
-  'password_dont_match':     "Password don't match"
+  'password_dont_match':    "Password don't match"
+  'delete':                 'Delete' 
+  'edit':                   'Edit'
+  'edit post':              'Edit post'

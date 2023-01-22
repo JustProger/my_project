@@ -1,8 +1,6 @@
 <% # app/views/post/new.html.erb %>
-<%= form_for :post, url: '/posts' do |f| %>
-  <h1>
-    <%= t(:'add post') %>
-  </h1>
+<%= form_for :post, url: posts_path do |f| %>
+  <h1><%= t(:'add post') %></h1>
   <br/>
   <div class="form-group">
     <%= f.label t('title')+':', for: "title" %>

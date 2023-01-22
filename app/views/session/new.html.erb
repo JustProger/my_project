@@ -1,8 +1,6 @@
 <% # app/views/session/new.html.erb %>
 <%= form_tag '/login' do %>
-  <h1>
-    <%= t(:'login') %>
-  </h1>
+  <h1><%= t(:'login') %></h1>
   <div class="form-group">
     <% if flash[:alert] %>
       <div class="alert alert-danger" role="alert">

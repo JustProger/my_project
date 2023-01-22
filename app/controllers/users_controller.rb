@@ -2,7 +2,9 @@ class UsersController < ApplicationController
   before_action :deny_access_to_authorized, only: %i[new create]
   before_action :authorize, only: %i[profile]
 
-  def profile; end
+  def profile
+    @user = User.find(params[:id])
+  end
   def new; end
 
   # def edit

@@ -15,6 +15,10 @@
 */
 @import "bootstrap";
 
+html {
+    font-size: 13px;
+}
+
 body {
     background-color: $light;
 }
@@ -30,6 +34,10 @@ body {
 
 .form-group {
     margin-bottom: 1rem;
+}
+
+.datetime {
+    font-size: 0.8rem;
 }
 
 .container {

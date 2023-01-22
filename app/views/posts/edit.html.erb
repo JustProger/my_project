@@ -1,0 +1,15 @@
+<% # app/views/post/edit.html.erb %>
+<%= form_for :post, method: :put, url: posts_update_path(id: @post.id) do |f| %>
+  <h1><%= t('edit post') %></h1>
+  <br/>
+  <%= f.hidden_field :user_id, value: @post.user_id %>
+  <div class="form-group">
+    <%= f.label t('title')+':', for: "title" %>
+    <%= f.text_field :title, placeholder: 'Post title', value: @post.title %>
+  </div>
+  <div class="form-group">
+    <%= f.label t('content')+':', for: "main_body" %>
+    <%= f.text_area :content, class: "form-control",  rows: "5", id: "main_body", value: @post.content %>
+  </div>
+  <%= f.submit t('edit'), class: 'btn btn-info' %>
+<% end %>

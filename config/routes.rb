@@ -17,7 +17,11 @@ Rails.application.routes.draw do
   post   '/posts'     => 'posts#create'
   post   '/comments'  => 'comments#create'
 
+  get 'posts/edit'
+  put 'posts/update'
+
   delete 'posts/remove'
+  delete 'comments/remove'
 
   root   'posts#last'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

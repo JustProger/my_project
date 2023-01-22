@@ -11,7 +11,7 @@
           <%= t('author')+':' %>
         </strong>
         <% begin %>
-          <% user = User.find(post1.author) %>
+          <% user = User.find(post1.user_id) %>
           <%= link_to "#{user.name}", users_profile_path(id: user.id) %>
         <% rescue %>
           <%= 'Author not found' %>

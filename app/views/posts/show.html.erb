@@ -1,5 +1,10 @@
 <div class="post_block">
+
   <div class="post_head">
+    <% if flash[:notice] %>
+      <div class="alert alert-success" role="alert"><%= flash[:notice] %></div>
+    <% end %>
+
     <div class="row justify-content-between">
       <div class='col-sm-auto'>
         <div class="post_title">
@@ -7,24 +12,35 @@
             <%= @post.title %>
           </a>
         </div>
+
         <div class="post_stat">
-          <strong>
-            <%= t('author')+':' %p %>
-          </strong>
+          <strong><%= t('author')+':' %></strong>
           <% begin %>
-            <% user = User.find(@post.author) %>
+            <% user = User.find(@post.user_id) %>
             <%= link_to "#{user.name}", users_profile_path(id: user.id) %>
           <% rescue %>
             <%= 'Author not found' %>
           <% end %>
+          <span class="datetime"><%= @post.updated_at.strftime("%Y-%m-%d %H:%M") %></span>
         </div>
       </div>
-      <div class='col-sm-auto'>
-        <%= button_to "Delete", posts_remove_path(id: @post.id), method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-danger" %>
-      </div>
+
+      <% if (@post.user_id == current_user.id) %>
+        <div class='col-sm-auto row align-items-center'>
+          <div class='col-sm-auto' style='padding: 0'>
+            <%= link_to t("edit"), posts_edit_path(id: @post.id, user_id: current_user.id), class: "btn btn-info" %>
+          </div>
+
+          <div class='col-sm-auto' style='padding-left: 0'>
+            <%= button_to t("delete"), posts_remove_path(id: @post.id, user_id: current_user.id), method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-danger" %>
+          </div>
+        </div>
+      <% end %>
     </div>
   </div>
-  <div>
+
+  <div class="post_body">
+    <div class="post_body_stat"><strong><%= t('content')+':' %></strong></div>
     <% cache @post do %>
       <% @post.content.split("\n").each do |par| %>
         <p>
@@ -33,26 +49,42 @@
       <% end %>
     <% end %>
   </div>
+
   <%= form_for :comment, url: '/comments' do |f| %>
     <p><%= t(:'add new comment') %></p>
-    <%= f.hidden_field :post, value: @post.id %>
+    <%= f.hidden_field :post_id, value: @post.id %>
     <%= f.text_area :content, placeholder: t('write here'), rows: "4", style: 'width: 100%' %>
     <%= f.submit t('create'), class: 'btn btn-info' %>
   <% end %>
-  <% Comment.where(post: @post.id).each do |comm| %>
+
+  <% Comment.where(post_id: @post.id).each do |comm| %>
     <% begin %>
       <% cache comm do %>
-        <div class="row comment-block">
+        <div class="row justify-content-start comment-block">
           <div class="col-sm-auto" name="comment_stat">
             <p>
-              <% user = User.find(comm.author) %>
+              <% user = User.find(comm.user_id) %>
               <%= link_to "#{user.name}", users_profile_path(id: user.id) %>
               :
             </p>
           </div>
-          <div class="col-sm-auto" name="comment_wraper">
-            <div>
+
+          <div class="col-sm row justify-content-between" name="comment_wraper">
+            <div class="col-sm-auto">
               <%= comm.content %>
+            </div>
+
+            <div class="col-sm-auto row justify-content-end align-items-center">
+              <% if (comm.user_id == current_user.id) %>
+
+                <div class='col-sm-auto' style='padding: 0'>
+                  <%= button_to t('delete'), comments_remove_path(id: comm.id, user_id: current_user.id), method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-danger" %>
+                </div>
+              <% end %>
+
+              <div class="col-sm-auto datetime" style='padding-left: 0'>
+                <%= comm.updated_at.strftime("%Y-%m-%d %H:%M") %>
+              </div>
             </div>
           </div>
         </div>

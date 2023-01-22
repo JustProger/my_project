@@ -21,7 +21,7 @@
         <ul class="navbar-nav mr-auto">
           <% if current_user %>
             <li class="nav-item">
-              <a class="nav-link" href="/profile">
+              <a class="nav-link" href=<%= users_profile_path(id: current_user.id) %>>
                 <%= t('user')+': @'+current_user.name.downcase %>
               </a>
             </li>
@@ -37,12 +37,12 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" href="?locale=en">
-                <%= 'EN' %>
+                <%= 'en' %>
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="?locale=ru">
-                <%= 'РУ' %>
+                <%= 'ру' %>
               </a>
             </li>
           <% end %>

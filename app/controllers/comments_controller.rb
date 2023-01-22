@@ -6,17 +6,21 @@ class CommentsController < ApplicationController
 
   def create
     @comment = Comment.create(comment_params)
-    redirect_to '/posts/show?id=' + @comment[:post].to_s
+    redirect_to '/posts/show?id=' + @comment[:post_id].to_s
   end
 
   def remove
-    @comment = Comment.find(params[:id])
-    @comment.destroy
-    redirect_to posts_path
+    comment = Comment.find(params[:id])
+    if comment.user_id == params[:user_id].to_i
+      comment.destroy
+      redirect_to request.referer
+    else
+      redirect_to request.referer
+    end
   end
 
   def show
-    @comment = Comment.where(post: @post.id)
+    @comment = Comment.where(post_id: @post.id)
   end
 
   def index
@@ -29,6 +33,6 @@ class CommentsController < ApplicationController
 
   private
     def comment_params
-      params.require(:comment).merge!(author: current_user.id).permit(:post, :author, :content)
+      params.require(:comment).merge!(user_id: current_user.id).permit(:post_id, :user_id, :content)
     end
 end
