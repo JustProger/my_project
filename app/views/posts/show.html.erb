@@ -1,20 +1,27 @@
 <div class="post_block">
   <div class="post_head">
-    <div class="post_title">
-      <a class="h3" href="/posts/show?id=<%= @post.id.to_s%>">
-        <%= @post.title %>
-      </a>
-    </div>
-    <div class="post_stat">
-      <strong>
-        <%= t('author')+':' %p %>
-      </strong>
-      <% begin %>
-        <% user = User.find(@post.author) %>
-        <%= link_to "#{user.name}", users_profile_path(id: user.id) %>
-      <% rescue %>
-        <%= 'Author not found' %>
-      <% end %>
+    <div class="row justify-content-between">
+      <div class='col-sm-auto'>
+        <div class="post_title">
+          <a class="h3" href="/posts/show?id=<%= @post.id.to_s%>">
+            <%= @post.title %>
+          </a>
+        </div>
+        <div class="post_stat">
+          <strong>
+            <%= t('author')+':' %p %>
+          </strong>
+          <% begin %>
+            <% user = User.find(@post.author) %>
+            <%= link_to "#{user.name}", users_profile_path(id: user.id) %>
+          <% rescue %>
+            <%= 'Author not found' %>
+          <% end %>
+        </div>
+      </div>
+      <div class='col-sm-auto'>
+        <%= button_to "Delete", posts_remove_path(id: @post.id), method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-danger" %>
+      </div>
     </div>
   </div>
   <div>
