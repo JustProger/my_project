@@ -1,11 +1,7 @@
-<% # app/views/users/new.html.erb %>
-<h1>
-  <%= t('profile') %>
-</h1>
+<% # app/views/users/profile.html.erb %>
+<h1><%= t('profile') %></h1>
 <div class="form-group">
-  <label>
-    <%= t('name')+':' %>
-  </label>
+  <label><%= t('name')+':' %></label>
   <label>
     <% begin %>
       <%= '@'+current_user.name.downcase %>

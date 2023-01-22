@@ -10,7 +10,8 @@
         <%= t('author')+':' %p %>
       </strong>
       <% begin %>
-        <%= User.where(id: @post.author).first.name %>
+        <% user = User.find(@post.author) %>
+        <%= link_to "#{user.name}", users_profile_path(id: user.id) %>
       <% rescue %>
         <%= 'Author not found' %>
       <% end %>
@@ -26,9 +27,7 @@
     <% end %>
   </div>
   <%= form_for :comment, url: '/comments' do |f| %>
-    <p>
-      <%= t(:'add new comment') %>
-    </p>
+    <p><%= t(:'add new comment') %></p>
     <%= f.hidden_field :post, value: @post.id %>
     <%= f.text_area :content, placeholder: t('write here'), rows: "4", style: 'width: 100%' %>
     <%= f.submit t('create'), class: 'btn btn-info' %>
@@ -39,7 +38,9 @@
         <div class="row comment-block">
           <div class="col-sm-auto" name="comment_stat">
             <p>
-              <%= '@'+User.where(id: comm.author).first.name+':' %>
+              <% user = User.find(comm.author) %>
+              <%= link_to "#{user.name}", users_profile_path(id: user.id) %>
+              :
             </p>
           </div>
           <div class="col-sm-auto" name="comment_wraper">

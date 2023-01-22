@@ -9,21 +9,26 @@ class UsersController < ApplicationController
   # end
 
   def create
-    user = User.new(user_params)
+    @create_user = User.new(user_params)
 
-   
-    if user.save
-      session[:user_id] = user.id
+    if @create_user.save
+      session[:user_id] = @create_user.id
       redirect_to root_path
     else
-      flash[:alert] = 'invalid input'
+      flash[:alert] ||= []
+      if @create_user.errors.any?
+        @create_user.errors.full_messages.each do |message|
+          flash[:alert] << message
+        end
+      end
       redirect_to '/signup'
     end
     
   end
 
   private
-    def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation)
-    end
+
+  def user_params
+    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+  end
 end

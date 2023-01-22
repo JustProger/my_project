@@ -1,18 +1,19 @@
 <% # app/views/users/new.html.erb %>
-<%= form_for :user, url: '/signup' do |f| %>
-  <h1>
-    <%= t('signup') %>
-  </h1>
+<%= form_for :user, method: :post, url: '/signup' do |f| %>
+  <h1><%= t('signup') %></h1>
   <% if flash[:alert] %>
     <div class="alert alert-danger" role="alert">
-      <%= t(flash[:alert]) %>
+      <p><%= t('invalid input') %></p>
+      <% flash[:alert].each do |msg| %>
+        <p><%= msg %></p>
+      <% end %>
     </div>
   <% end %>
   <div class="form-group">
-    <%= f.text_field :name, placeholder: t('name'), pattern: "[a-z0-9_]+$", required: "required" %>
+    <%= f.text_field :name, placeholder: t('name'), pattern: "^[a-z0-9_]+$", required: "required" %>
   </div>
   <div class="form-group">
-    <%= f.text_field :email, placeholder: 'Email', pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$", required: "required" %>
+    <%= f.text_field :email, placeholder: 'Email', pattern: "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$", required: "required" %>
   </div>
   <div class="form-group">
     <%= f.password_field :password, placeholder: t('password'), required: "required" %>

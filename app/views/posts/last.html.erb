@@ -8,10 +8,11 @@
       </div>
       <div class="post_stat">
         <strong>
-          <%= t('author')+':' %p %>
+          <%= t('author')+':' %>
         </strong>
         <% begin %>
-          <%= User.where(id: post1.author).first.name %>
+          <% user = User.find(post1.author) %>
+          <%= link_to "#{user.name}", users_profile_path(id: user.id) %>
         <% rescue %>
           <%= 'Author not found' %>
         <% end %>
@@ -20,9 +21,7 @@
     <div>
       <% cache post1 do %>
         <% post1.content.split("\n").each do |par| %>
-          <p>
-            <%= par %>
-          </p>
+          <p><%= par %></p>
         <% end %>
       <% end %>
     </div>

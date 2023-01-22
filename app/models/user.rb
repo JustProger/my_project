@@ -10,5 +10,5 @@ class User < ApplicationRecord
               email_format: { message: 'invalid email format' }
   
     validates :password_digest,
-              presence: true, confirmation: true                
+              presence: true, confirmation: true
 end
