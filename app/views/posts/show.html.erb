@@ -1,10 +1,56 @@
-<p style="color: green"><%= notice %></p>
-
-<%= render @post %>
-
-<div>
-  <%= link_to "Edit this post", edit_post_path(@post) %> |
-  <%= link_to "Back to posts", posts_path %>
-
-  <%= button_to "Destroy this post", @post, method: :delete %>
+<div class="post_block">
+  <div class="post_head">
+    <div class="post_title">
+      <a class="h3" href="/posts/show?id=<%= @post.id.to_s%>">
+        <%= @post.title %>
+      </a>
+    </div>
+    <div class="post_stat">
+      <strong>
+        <%= t('author')+':' %p %>
+      </strong>
+      <% begin %>
+        <%= User.where(id: @post.author).first.name %>
+      <% rescue %>
+        <%= 'Author not found' %>
+      <% end %>
+    </div>
+  </div>
+  <div>
+    <% cache @post do %>
+      <% @post.content.split("\n").each do |par| %>
+        <p>
+          <%= par %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+  <%= form_for :comment, url: '/comments' do |f| %>
+    <p>
+      <%= t(:'add new comment') %>
+    </p>
+    <%= f.hidden_field :post, value: @post.id %>
+    <%= f.text_area :content, placeholder: t('write here'), rows: "4", style: 'width: 100%' %>
+    <%= f.submit t('create'), class: 'btn btn-info' %>
+  <% end %>
+  <% Comment.where(post: @post.id).each do |comm| %>
+    <% begin %>
+      <% cache comm do %>
+        <div class="row comment-block">
+          <div class="col-sm-auto" name="comment_stat">
+            <p>
+              <%= '@'+User.where(id: comm.author).first.name+':' %>
+            </p>
+          </div>
+          <div class="col-sm-auto" name="comment_wraper">
+            <div>
+              <%= comm.content %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% rescue %>
+      <%= 'comment error' %>
+    <% end %>
+  <% end %>
 </div>

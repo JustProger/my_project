@@ -1,0 +1,30 @@
+<% @post.each do |post1| %>
+  <div class="post_block">
+    <div class="post_head">
+      <div class="post_title">
+        <a class="h3" href="/posts/show?id=<%= post1.id.to_s %>">
+          <%= post1.title %>
+        </a>
+      </div>
+      <div class="post_stat">
+        <strong>
+          <%= t('author')+':' %p %>
+        </strong>
+        <% begin %>
+          <%= User.where(id: post1.author).first.name %>
+        <% rescue %>
+          <%= 'Author not found' %>
+        <% end %>
+      </div>
+    </div>
+    <div>
+      <% cache post1 do %>
+        <% post1.content.split("\n").each do |par| %>
+          <p>
+            <%= par %>
+          </p>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

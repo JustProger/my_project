@@ -1,0 +1,79 @@
+/*
+* This is a manifest file that'll be compiled into application.css, which will include all the files
+* listed below.
+*
+* Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+* vendor/assets/stylesheets directory can be referenced here using a relative path.
+*
+* You're free to add application-wide styles to this file and they'll appear at the bottom of the
+* compiled file so the styles you add here take precedence over styles defined in any other CSS
+* files in this directory. Styles in this file should be added after the last require_* statement.
+* It is generally better to create a new file per style scope.
+*
+*= require_tree .
+*= require_self
+*/
+@import "bootstrap";
+
+body {
+    background-color: $light;
+}
+
+.navbar {
+    padding: 0.5rem 1rem;
+}
+
+.navbar > .btn {
+    margin: 0 0.5rem;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.container {
+    margin: 0 auto;
+    margin-bottom: 4pt;
+    text-overflow: ellipsis;
+    font-size: 1.4rem;
+    color: --dark;
+}
+
+.container, form, .post_block, .post_wraper, .comment-block{
+    padding: 8pt;
+    border-radius: 8pt;
+}
+
+input, textarea{
+    border-radius: 5px;
+    border: 0px;
+}
+
+form {
+    background-color: #e4e4e4;
+    text-align: center;
+}
+
+.post_block{
+    margin-top: 8pt;
+    margin-bottom: 8pt;
+    background-color: #e4e4e4;
+}
+
+.comment-block{
+    margin-top: 8pt;
+    margin-bottom: 8pt;
+    margin-left: 8pt;
+    margin-right: 8pt;
+}
+
+.btn-info {
+    background-color: #095cb1;
+    border-color: #409af7;
+}
+
+.btn-info:hover {
+    color: #fff;
+    background-color: #398de2;
+    border-color: #5ca4ec;;
+}

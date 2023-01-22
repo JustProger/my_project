@@ -3,14 +3,66 @@
   <head>
     <title>Project</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="utf-8"/>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload", media: 'all' %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class='body'>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #232323">
+      <button class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand" href="/">BMSTU Twitter</a>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <% if current_user %>
+            <li class="nav-item">
+              <a class="nav-link" href="/profile">
+                <%= t('user')+': @'+current_user.name.downcase %>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/posts/new">
+                <%= t('create post') %>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <%= t('all posts') %>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="?locale=en">
+                <%= 'EN' %>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="?locale=ru">
+                <%= 'РУ' %>
+              </a>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+      <% unless current_user %>
+        <a class="btn btn-info" href="/signup">
+          <%= t(:'signup')  %>
+        </a>
+        <a class="btn btn-info align-rigth" href="/login">
+          <%= t(:'login') %>
+        </a>
+      <% else     %>
+        <a class="btn btn-info align-rigth" href="/logout">
+          <%= t(:'logout') %>
+        </a>
+      <% end %>
+    </nav>
+    <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>

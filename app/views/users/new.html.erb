@@ -1,9 +1,24 @@
-<h1>New user</h1>
-
-<%= render "form", user: @user %>
-
-<br>
-
-<div>
-  <%= link_to "Back to users", users_path %>
-</div>
+<% # app/views/users/new.html.erb %>
+<%= form_for :user, url: '/signup' do |f| %>
+  <h1>
+    <%= t('signup') %>
+  </h1>
+  <% if flash[:alert] %>
+    <div class="alert alert-danger" role="alert">
+      <%= t(flash[:alert]) %>
+    </div>
+  <% end %>
+  <div class="form-group">
+    <%= f.text_field :name, placeholder: t('name'), pattern: "[a-z0-9_]+$", required: "required" %>
+  </div>
+  <div class="form-group">
+    <%= f.text_field :email, placeholder: 'Email', pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$", required: "required" %>
+  </div>
+  <div class="form-group">
+    <%= f.password_field :password, placeholder: t('password'), required: "required" %>
+  </div>
+  <div class="form-group">
+    <%= f.password_field :password_confirmation, placeholder: t('password confirmation'), required: "required", 'data-message': t('password_dont_match'),oninput: "check_passwords_identity(this)" %>
+  </div>
+  <%= f.submit t('sign up'), class: 'btn btn-info' %>
+<% end %>

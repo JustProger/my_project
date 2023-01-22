@@ -1,2 +1,20 @@
-<h1>Session#new</h1>
-<p>Find me in app/views/session/new.html.erb</p>
+<% # app/views/session/new.html.erb %>
+<%= form_tag '/login' do %>
+  <h1>
+    <%= t(:'login') %>
+  </h1>
+  <div class="form-group">
+    <% if flash[:alert] %>
+      <div class="alert alert-danger" role="alert">
+        <%= t(flash[:alert]) %>
+      </div>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <%= text_field_tag :email, flash[:email], placeholder: 'Email', pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$", required: "required" %>
+  </div>
+  <div class="form-group">
+    <%= password_field_tag :password, nil, placeholder: t('password'), required: "required" %>
+  </div>
+  <%= submit_tag t(:'log in'), class: 'btn btn-info' %>
+<% end %>

@@ -1,0 +1,36 @@
+<% # app/views/users/new.html.erb %>
+<h1>
+  <%= t('profile') %>
+</h1>
+<div class="form-group">
+  <label>
+    <%= t('name')+':' %>
+  </label>
+  <label>
+    <% begin %>
+      <%= '@'+current_user.name.downcase %>
+    <% rescue %>
+      <%= '@'+'user_name_error' %>
+    <% end %>
+  </label>
+</div>
+<div class="form-group">
+  <label>Email:</label>
+  <label>
+    <% begin %>
+      <%= current_user.email.downcase %>
+    <% rescue %>
+      <%= 'user_email_error' %>
+    <% end %>
+  </label>
+</div>
+<div class="form-group">
+  <label>
+    <%= t("user's posts")+':' %>
+  </label>
+  <% Post.where(author: current_user.id).each do |post| %>
+    <a class="h3" href="/posts/show?id="+post.id.to_s>
+      <%= post.title %>
+    </a>
+  <% end %>
+</div>
