@@ -27,7 +27,7 @@
 
       <% if (@post.user_id == current_user.id) %>
         <div class='col-sm-auto row align-items-center'>
-          <div class='col-sm-auto' style='padding: 0'>
+          <div class='col-sm-auto' style='padding-left: 0'>
             <%= link_to t("edit"), posts_edit_path(id: @post.id, user_id: current_user.id), class: "btn btn-info" %>
           </div>
 
@@ -71,18 +71,28 @@
 
           <div class="col-sm row justify-content-between" name="comment_wraper">
             <div class="col-sm-auto">
-              <%= comm.content %>
+              <% cache comm do %>
+                <% comm.content.split("\n").each do |par| %>
+                  <p>
+                    <%= par %>
+                  </p>
+                <% end %>
+              <% end %>
             </div>
 
-            <div class="col-sm-auto row justify-content-end align-items-center">
+            <div class="col-sm-auto row justify-content-end align-items-end">
               <% if (comm.user_id == current_user.id) %>
 
-                <div class='col-sm-auto' style='padding: 0'>
+                <div class='col-sm-auto' style='padding-left: 0'>
+                  <%= link_to t("edit"), comments_edit_path(id: comm.id, user_id: current_user.id), class: "btn btn-info" %>
+                </div>
+
+                <div class='col-sm-auto' style='padding-left: 0'>
                   <%= button_to t('delete'), comments_remove_path(id: comm.id, user_id: current_user.id), method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-danger" %>
                 </div>
               <% end %>
 
-              <div class="col-sm-auto datetime" style='padding-left: 0'>
+              <div class="col-sm-auto datetime" style='padding: 0'>
                 <%= comm.updated_at.strftime("%Y-%m-%d %H:%M") %>
               </div>
             </div>

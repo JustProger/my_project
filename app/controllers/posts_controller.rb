@@ -7,7 +7,6 @@ class PostsController < ApplicationController
 
   def edit
     @post = Post.find(params[:id])
-    p 'slfjsdlfkjsldfjsdlfksdfjskldfjsdlfjsfkjslkdfjl'
     unless @post.user_id == params[:user_id].to_i
       redirect_to request.referer, notice: 'youuuu'
     end

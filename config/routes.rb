@@ -18,7 +18,9 @@ Rails.application.routes.draw do
   post   '/comments'  => 'comments#create'
 
   get 'posts/edit'
+  get 'comments/edit'
   put 'posts/update'
+  put 'comments/update'
 
   delete 'posts/remove'
   delete 'comments/remove'

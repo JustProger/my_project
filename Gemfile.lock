@@ -223,7 +223,6 @@ GEM
       concurrent-ruby (~> 1.0)
     validates_email_format_of (1.7.2)
       i18n
-    vuejs-rails (2.5.13)
     web-console (4.2.0)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -257,7 +256,6 @@ DEPENDENCIES
   turbo-rails
   tzinfo-data
   validates_email_format_of
-  vuejs-rails
   web-console
 
 RUBY VERSION
