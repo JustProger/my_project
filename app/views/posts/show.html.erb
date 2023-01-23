@@ -2,7 +2,11 @@
 
   <div class="post_head">
     <% if flash[:notice] %>
-      <div class="alert alert-success" role="alert"><%= flash[:notice] %></div>
+      <div class="alert alert-success" role="notice"><%= flash[:notice] %></div>
+    <% end %>
+
+    <% if flash[:alert] %>
+      <div class="alert alert-danger" role="alert"><%= flash[:alert] %></div>
     <% end %>
 
     <div class="row justify-content-between">
@@ -14,25 +18,50 @@
         </div>
 
         <div class="post_stat">
-          <strong><%= t('author')+':' %></strong>
-          <% begin %>
-            <% user = User.find(@post.user_id) %>
-            <%= link_to "#{user.name}", users_profile_path(id: user.id) %>
-          <% rescue %>
-            <%= 'Author not found' %>
-          <% end %>
-          <span class="datetime"><%= @post.updated_at.strftime("%Y-%m-%d %H:%M") %></span>
+          <div>
+            <strong><%= t('author')+':' %></strong>
+            <% begin %>
+              <% user = User.find(@post.user_id) %>
+              <%= link_to "#{user.name}", users_profile_path(id: user.id) %>
+            <% rescue %>
+              <%= 'Author not found' %>
+            <% end %>
+          </div>
+          <div>
+            <strong><%= t('publication date')+':' %></strong>
+            <span class="datetime datetime-md"><%= @post.created_at.strftime("%Y-%m-%d %H:%M") %></span>
+          </div>
         </div>
       </div>
 
       <% if (@post.user_id == current_user.id) %>
         <div class='col-sm-auto row align-items-center'>
           <div class='col-sm-auto' style='padding-left: 0'>
-            <%= link_to t("edit"), posts_edit_path(id: @post.id, user_id: current_user.id), class: "btn btn-info" %>
+            <%= link_to posts_edit_path(id: @post.id, user_id: current_user.id), class: "btn btn-info" do %>
+                <div class="row align-items-center">
+                  <div class="col-sm-auto pl-2 pr-2">
+                    <i class="bi-pencil-square"></i>
+                  </div>
+                  <div class="col-sm-auto pl-0 pr-2">
+                    <%= t('edit') %>
+                  </div>
+                </div>
+              </a>
+            <% end %>
           </div>
 
           <div class='col-sm-auto' style='padding-left: 0'>
-            <%= button_to t("delete"), posts_remove_path(id: @post.id, user_id: current_user.id), method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-danger" %>
+            <%= button_to posts_remove_path(id: @post.id, user_id: current_user.id), method: :delete, data: {confirm: 'Delete post. Are you sure?'}, class: "btn btn-danger", id: "delete_post_btn" do %>
+                <div class="row align-items-center">
+                  <div class="col-sm-auto pl-2 pr-2">
+                    <i class="bi-trash"></i>
+                  </div>
+                  <div class="col-sm-auto pl-0 pr-2">
+                    <%= t('delete') %>
+                  </div>
+                </div>
+              </button>
+            <% end %>
           </div>
         </div>
       <% end %>
@@ -60,7 +89,7 @@
   <% Comment.where(post_id: @post.id).each do |comm| %>
     <% begin %>
       <% cache comm do %>
-        <div class="row justify-content-start comment-block">
+        <div class="#post_comments row justify-content-start comment-block">
           <div class="col-sm-auto" name="comment_stat">
             <p>
               <% user = User.find(comm.user_id) %>
@@ -80,15 +109,34 @@
               <% end %>
             </div>
 
-            <div class="col-sm-auto row justify-content-end align-items-end">
+            <div class="col-sm-auto row justify-content-end align-items-center">
               <% if (comm.user_id == current_user.id) %>
-
                 <div class='col-sm-auto' style='padding-left: 0'>
-                  <%= link_to t("edit"), comments_edit_path(id: comm.id, user_id: current_user.id), class: "btn btn-info" %>
+                  <%= link_to comments_edit_path(id: comm.id, user_id: current_user.id), class: "btn btn-info" do %>
+                      <div class="row align-items-center">
+                        <div class="col-sm-auto pl-2 pr-2">
+                          <i class="bi-pencil-square"></i>
+                        </div>
+                        <div class="col-sm-auto pl-0 pr-2">
+                          <%= t('edit') %>
+                        </div>
+                      </div>
+                    </a>
+                  <% end %>
                 </div>
 
                 <div class='col-sm-auto' style='padding-left: 0'>
-                  <%= button_to t('delete'), comments_remove_path(id: comm.id, user_id: current_user.id), method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-danger" %>
+                  <%= button_to comments_remove_path(id: comm.id, user_id: current_user.id), method: :delete, data: {confirm: 'Delete comment. Are you sure?'}, class: "btn btn-danger", id: "delete_comment_btn" do %>
+                      <div class="row align-items-center">
+                        <div class="col-sm-auto pl-2 pr-2">
+                          <i class="bi-trash"></i>
+                        </div>
+                        <div class="col-sm-auto pl-0 pr-2">
+                          <%= t('delete') %>
+                        </div>
+                      </div>
+                    </a>
+                  <% end %>
                 </div>
               <% end %>
 

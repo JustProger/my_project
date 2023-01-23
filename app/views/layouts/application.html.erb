@@ -13,10 +13,12 @@
 
   <body class='body'>
     <nav class="navbar navbar-expand-lg navbar-dark">
-      <button class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse">
+      <button class="navbar-toggler" data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse">
         <span class="navbar-toggler-icon"></span>
       </button>
+
       <a class="navbar-brand" href="/">BMSTU Twitter</a>
+
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <% if current_user %>
@@ -25,16 +27,19 @@
                 <%= t('user')+': @'+current_user.name.downcase %>
               </a>
             </li>
+
             <li class="nav-item">
               <a class="nav-link" href="/posts/new">
                 <%= t('create post') %>
               </a>
             </li>
+
             <li class="nav-item">
               <a class="nav-link" href="/">
                 <%= t('all posts') %>
               </a>
             </li>
+
             <li class="nav-item">
               <% query_string_decoded = Hash[URI.decode_www_form(request.query_string)] %>
               <% unless query_string_decoded.keys.include? "locale" %>
@@ -48,6 +53,7 @@
                 <%= 'en' %>
               </a>
             </li>
+
             <li class="nav-item">
               <a class="nav-link" href="?<%= "#{URI.encode_www_form(qs_ru)}" %>">
                 <%= 'ру' %>
@@ -56,24 +62,48 @@
           <% end %>
         </ul>
       </div>
-      <a class="btn btn-info align-rigth" href=<%= "#{users_path}" %>>
-        <%= t("user's list") %>
-      </a>
-      <% unless current_user %>
-        <a class="btn btn-info" href="/signup">
-          <%= t(:'signup')  %>
+
+      <div>
+        <a class="btn btn-info" href=<%= "#{users_path}" %>>
+          <%= t("user's list") %>
         </a>
-        <a class="btn btn-info align-rigth" href="/login">
-          <%= t(:'login') %>
-        </a>
-      <% else     %>
-        <a class="btn btn-info align-rigth" href="/logout">
-          <%= t(:'logout') %>
-        </a>
-      <% end %>
+
+        <% unless current_user %>
+          <a class="btn btn-info" href="/signup">
+            <%= t(:'signup')  %>
+          </a>
+
+          <a class="btn btn-info" href="/login">
+            <%= t(:'login') %>
+          </a>
+        <% else     %>
+          <a class="btn btn-info" href="/logout">
+            <%= t(:'logout') %>
+          </a>
+        <% end %>
+      </div>
     </nav>
+
     <div class="container">
       <%= yield %>
     </div>
+
+    <footer class="footer border-top">
+      <div class="container">
+        <div class="row justify-content-start">
+          <div class="col-md-12 text-center">
+            <h2 class="footer-head">
+              <a href="#" class="logo">Меслауров Адам, ИУ6-33Б</a>
+            </h2>
+          </div>
+        </div>
+        <div class="row mt-5">
+          <div class="col-md-12 text-center">
+            <p class="copyright">
+              Copyright &copy;<%= Time.now.strftime("%Y") %>
+          </div>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>

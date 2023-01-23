@@ -30,9 +30,9 @@ class CommentsController < ApplicationController
     comment = Comment.find(params[:id])
     if comment.user_id == params[:user_id].to_i
       comment.destroy
-      redirect_to request.referer
+      redirect_to request.referer, notice: 'Comment was successfully removed!'
     else
-      redirect_to request.referer
+      redirect_to request.referer, alert: 'Smth went wrong:('
     end
   end
 

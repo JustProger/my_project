@@ -15,13 +15,42 @@
 */
 @import "bootstrap";
 
+.pr-0 {
+    padding-right: 0 !important;
+}
+
+.pl-0 {
+    padding-left: 0 !important;
+}
+
+.pr-2 {
+    padding-right: ($spacer * 0.5) !important;
+}
+
+.pl-2 {
+    padding-left: ($spacer * 0.5) !important;
+}
+
 html {
     font-size: 13px;
+    height: 100%;
 }
 
 body {
+    min-height: 100%;
     background-color: $light;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
 }
+
+#tooltip {
+    background: #333;
+    color: white;
+    font-weight: bold;
+    padding: 0.2rem 0.6rem;
+    font-size: 1rem;
+    border-radius: 0.2rem;
+  }
 
 .navbar {
     padding: 0.5rem 1rem;
@@ -38,6 +67,9 @@ body {
 
 .datetime {
     font-size: 0.8rem;
+}
+.datetime-md {
+    font-size: 1rem;
 }
 
 .container {
@@ -67,6 +99,14 @@ form {
     text-align: center;
 }
 
+a.badge.button-link:hover,
+a.badge.button-link {
+    text-decoration: none;
+    background-color: #41b9b7;
+    border-color: #409af7;
+    color: #fff;
+}
+
 .post_block, .user-block {
     margin-top: 8pt;
     margin-bottom: 8pt;
@@ -81,12 +121,13 @@ form {
 }
 
 .btn-info {
+    color: #fff;
     background-color: #41b9b7;
     border-color: #409af7;
 }
 
 .btn-info:hover {
-    color: #fff;
+    color: rgb(0, 255, 247);
     background-color: #398de2;
     border-color: #5ca4ec;;
 }

@@ -36,8 +36,10 @@ gem "jbuilder"
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem "bcrypt", "~> 3.1.7"
 gem 'bootstrap'
+gem 'bootstrap-icons'
 gem 'validates_email_format_of'
 gem 'jquery-rails'
+# gem 'popper'
 # gem 'vuejs-rails'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -50,7 +52,7 @@ gem "bootsnap", require: false
 # gem "sassc-rails"
 
 # Use Sass to process CSS
-gem "sass-rails"
+gem "sassc-rails"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
@@ -75,9 +77,11 @@ group :development do
 end
 
 group :test do
-  gem 'capybara'
+  gem "capybara"
+  gem "selenium-webdriver"
+  gem "webdrivers"
+
+  gem 'shoulda-matchers'
   gem 'faker'
   gem 'rails-controller-testing'
-  gem 'shoulda-matchers'
-  gem 'webdrivers'
 end

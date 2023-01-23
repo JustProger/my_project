@@ -36,7 +36,7 @@ class PostsController < ApplicationController
     post = Post.find(params[:id])
     if post.user_id == params[:user_id].to_i
       post.destroy
-      redirect_to posts_path
+      redirect_to posts_path, notice: 'Post was successfully removed!'
     else
       redirect_to request.referer
     end

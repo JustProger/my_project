@@ -31,7 +31,7 @@
           <%= t("user's posts")+':' %>
         </label>
         <% Post.where(user_id: user.id).each do |post| %>
-          <a class="h3" href=<%= "/posts/show?id=#{post.id.to_s}"%>>
+          <a class="badge button-link" href=<%= "/posts/show?id=#{post.id.to_s}"%>>
             <%= post.title %>
           </a>
         <% end %>
@@ -41,11 +41,31 @@
     <% if (user.id == current_user.id) %>
       <div class='col-sm-auto row align-items-center'>
         <div class='col-sm-auto' style='padding-left: 0'>
-          <%= link_to t("edit"), users_edit_path(id: user.id, user_id: current_user.id), class: "btn btn-info" %>
+          <%= link_to users_edit_path(id: user.id, user_id: current_user.id), class: "btn btn-info" do %>
+              <div class="row align-items-center">
+                <div class="col-sm-auto pl-2 pr-2">
+                  <i class="bi-pencil-square"></i>
+                </div>
+                <div class="col-sm-auto pl-0 pr-2">
+                  <%= t('edit') %>
+                </div>
+              </div>
+            </a>
+          <% end %>
         </div>
 
         <div class='col-sm-auto' style='padding-left: 0'>
-          <%= button_to t("delete"), posts_remove_path(id: user.id, user_id: current_user.id), method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-danger" %>
+          <%= button_to posts_remove_path(id: user.id, user_id: current_user.id), method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-danger" do %>
+              <div class="row align-items-center">
+                <div class="col-sm-auto pl-2 pr-2">
+                  <i class="bi-trash"></i>
+                </div>
+                <div class="col-sm-auto pl-0 pr-2">
+                  <%= t('delete') %>
+                </div>
+              </div>
+            </button>
+          <% end %>
         </div>
       </div>
     <% end %>
