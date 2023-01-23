@@ -45,10 +45,10 @@ body {
     margin-bottom: 4pt;
     text-overflow: ellipsis;
     font-size: 1.4rem;
-    color: --dark;
+    color: $dark;
 }
 
-.container, form, .post_block, .post_wraper, .comment-block{
+.container, form, .post_block, .post_wraper, .comment-block, .user-block{
     padding: 8pt;
     border-radius: 8pt;
 }
@@ -67,7 +67,7 @@ form {
     text-align: center;
 }
 
-.post_block{
+.post_block, .user-block {
     margin-top: 8pt;
     margin-bottom: 8pt;
     background-color: #e4e4e4;

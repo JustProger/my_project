@@ -1,0 +1,25 @@
+<% # app/views/users/new.html.erb %>
+<%= form_for :user, method: :put, url: users_update_path(id: @user.id) do |f| %>
+  <h1><%= t("user's editing") %></h1>
+  <% if flash[:alert] %>
+    <div class="alert alert-danger" role="alert">
+      <p><%= t('invalid input') %></p>
+      <% flash[:alert].each do |msg| %>
+        <p><%= msg %></p>
+      <% end %>
+    </div>
+  <% end %>
+  <div class="form-group">
+    <%= f.text_field :name, placeholder: t('name'), pattern: "^[a-z0-9_]+$", value: @user.name, required: "required" %>
+  </div>
+  <div class="form-group">
+    <%= f.text_field :email, placeholder: 'Email', pattern: "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$", value: @user.email, required: "required" %>
+  </div>
+  <div class="form-group">
+    <%= f.password_field :password, placeholder: t('new password'), required: "required" %>
+  </div>
+  <div class="form-group">
+    <%= f.password_field :password_confirmation, placeholder: t('password confirmation'), required: "required", 'data-message': t('password_dont_match'),oninput: "check_passwords_identity(this)" %>
+  </div>
+  <%= f.submit t('edit'), class: 'btn btn-info' %>
+<% end %>

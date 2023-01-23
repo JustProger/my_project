@@ -9,18 +9,20 @@ Rails.application.routes.draw do
 
   get    '/profile'   => 'users#profile'
   get    'users/profile'
+  get    '/users'     => 'users#index'
+  get    '/users/edit'
+  put    '/users/update'
  
   get    '/new' => 'posts#last'
   get    '/posts/show'
-
   get    '/posts/new'
   post   '/posts'     => 'posts#create'
+  get    'posts/edit'
+  put    'posts/update'
+  
+  get    'comments/edit'
+  put    'comments/update'
   post   '/comments'  => 'comments#create'
-
-  get 'posts/edit'
-  get 'comments/edit'
-  put 'posts/update'
-  put 'comments/update'
 
   delete 'posts/remove'
   delete 'comments/remove'

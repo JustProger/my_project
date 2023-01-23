@@ -36,18 +36,29 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="?locale=en">
+              <% query_string_decoded = Hash[URI.decode_www_form(request.query_string)] %>
+              <% unless query_string_decoded.keys.include? "locale" %>
+                <% query_string_decoded["locale"] = '' %>
+              <% end %>
+              <% qs_en = query_string_decoded.clone %>
+              <% qs_ru = query_string_decoded.clone %>
+              <% qs_en["locale"] = 'en' %>
+              <% qs_ru["locale"] = 'ru' %>
+              <a class="nav-link" href="?<%= "#{URI.encode_www_form(qs_en)}" %>">
                 <%= 'en' %>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="?locale=ru">
+              <a class="nav-link" href="?<%= "#{URI.encode_www_form(qs_ru)}" %>">
                 <%= 'ру' %>
               </a>
             </li>
           <% end %>
         </ul>
       </div>
+      <a class="btn btn-info align-rigth" href=<%= "#{users_path}" %>>
+        <%= t("user's list") %>
+      </a>
       <% unless current_user %>
         <a class="btn btn-info" href="/signup">
           <%= t(:'signup')  %>
