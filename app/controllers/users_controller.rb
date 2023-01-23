@@ -1,24 +1,26 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
   before_action :deny_access_to_authorized, only: %i[new create]
   before_action :authorize, only: %i[profile]
-  
+
   def index
     @users = User.all
   end
 
   def profile
     @user = User.find(params[:id])
-  # rescue
-  #   redirect_to root_path
+    # rescue
+    #   redirect_to root_path
   end
 
   def new; end
 
   def edit
     @user = User.find(params[:id])
-    unless @user.id == params[:user_id].to_i
-      redirect_to request.referer, notice: 'youuuu!'
-    end
+    return if @user.id == params[:user_id].to_i
+
+    redirect_to request.referer, notice: 'youuuu!'
   end
 
   # PUT method
@@ -37,7 +39,6 @@ class UsersController < ApplicationController
     end
   end
 
-
   def create
     @create_user = User.new(user_params)
 
@@ -53,7 +54,6 @@ class UsersController < ApplicationController
       end
       redirect_to '/signup'
     end
-    
   end
 
   private

@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 class SessionController < ApplicationController
   before_action :deny_access_to_authorized, only: %i[new create]
 
   def create
     user = User.find_by_email(params[:email])
-    if user && user.authenticate(params[:password])
+    if user&.authenticate(params[:password])
       session[:user_id] = user.id
       redirect_to root_path
     else

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PostsController < ApplicationController
   before_action :authorize
 
@@ -7,9 +9,9 @@ class PostsController < ApplicationController
 
   def edit
     @post = Post.find(params[:id])
-    unless @post.user_id == params[:user_id].to_i
-      redirect_to request.referer, notice: 'youuuu'
-    end
+    return if @post.user_id == params[:user_id].to_i
+
+    redirect_to request.referer, notice: 'youuuu'
   end
 
   # PUT method
@@ -44,7 +46,7 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
-  rescue
+  rescue StandardError
     redirect_to root_path
   end
 
@@ -57,6 +59,7 @@ class PostsController < ApplicationController
   end
 
   private
+
   def post_params
     params.require(:post).merge!(user_id: current_user.id).permit(:title, :content, :user_id)
   end

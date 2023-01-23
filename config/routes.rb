@@ -1,28 +1,30 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
-  get    '/login'     => 'session#new'
-  post   '/login'     => 'session#create'
- 
-  get    '/logout'    => 'session#destroy'
+  get    '/login'        => 'session#new'
+  post   '/login'        => 'session#create'
 
-  get    '/signup'    => 'users#new'
-  post   '/signup'    => 'users#create'
+  get    '/logout'       => 'session#destroy'
 
-  get    '/profile'   => 'users#profile'
+  get    '/signup'       => 'users#new'
+  post   '/signup'       => 'users#create'
+
+  get    '/profile'      => 'users#profile'
   get    'users/profile'
-  get    '/users'     => 'users#index'
+  get    '/users' => 'users#index'
   get    '/users/edit'
   put    '/users/update'
- 
-  get    '/new' => 'posts#last'
+
+  get    '/posts' => 'posts#last' # root_path - тот же маршрут
   get    '/posts/show'
   get    '/posts/new'
-  post   '/posts'     => 'posts#create'
+  post   '/posts' => 'posts#create'
   get    'posts/edit'
   put    'posts/update'
-  
+
   get    'comments/edit'
   put    'comments/update'
-  post   '/comments'  => 'comments#create'
+  post   '/comments' => 'comments#create'
 
   delete 'posts/remove'
   delete 'comments/remove'
