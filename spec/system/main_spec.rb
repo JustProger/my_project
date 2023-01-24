@@ -2,15 +2,8 @@
 
 require 'rails_helper'
 
-# Capybara.register_driver :selenium_firefox do |app|
-#   Capybara::Selenium::Driver.new(app, :browser => :firefox)
-# end
-
 RSpec.describe 'Static content', type: :system do
   scenario 'creating a User, checking his data, creating post with comment and destroying them all' do
-    # describe 'creating a User, checking his data, creating post with comment and destroying them all' do
-    # it "should do something" do
-    # Capybara.current_driver = :selenium_firefox
     visit root_path # переходим на страницы ввода
 
     click_on 'Signup'
@@ -54,10 +47,6 @@ RSpec.describe 'Static content', type: :system do
 
     expect(message).to have_text('Delete comment. Are you sure?')
 
-    # alert = page.driver.browser.switch_to.alert
-    # expect(alert.text).to have_text('Delete comment. Are you sure?')
-    # alert.accept  # can also be alert.dismiss
-
     expect(find('body')).to have_text('Comment was successfully removed!')
 
     message = accept_alert do
@@ -66,11 +55,20 @@ RSpec.describe 'Static content', type: :system do
 
     expect(message).to have_text('Delete post. Are you sure?')
 
-    # alert = page.driver.browser.switch_to.alert
-    # expect(alert.text).to have_text('Delete post. Are you sure?')
-    # alert.accept  # can also be alert.dismiss
-
     expect(find('body')).to have_text('Post was successfully removed!')
+
+    find('#users_list_btn').click
+
+    message = accept_alert do
+      find('#users_list_delete_user_btn').click
+    end
+
+    expect(message).to have_text('Delete user. Are you sure?')
+
+    expect(find('body')).to have_text('User was successfully deleted!')
   end
-  # end
+
+  scenario 'checking user\s data' do
+
+  end
 end

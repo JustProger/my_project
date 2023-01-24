@@ -141,6 +141,7 @@
               <% end %>
 
               <div class="col-sm-auto datetime" style='padding: 0'>
+                <%= t('edited:') if comm.created_at != comm.updated_at %>
                 <%= comm.updated_at.strftime("%Y-%m-%d %H:%M") %>
               </div>
             </div>

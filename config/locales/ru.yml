@@ -34,3 +34,6 @@ ru:
   "new password":           "Новый пароль"
   'publication date':       'Дата опубликования'
   'last posts':             'Последние посты'
+  'invalid login':          'Неверный логин'
+  'invalid password':       'Неверный пароль'
+  'edited:':                'Изменён:'

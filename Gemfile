@@ -56,6 +56,11 @@ gem 'bootsnap', require: false
 # Use Sass to process CSS
 gem 'sassc-rails'
 
+# Гем, который умеет пагинировать модели.
+gem 'kaminari'
+# Перевод сообщений (далее/на предыдущую/первая/последняя).
+gem 'kaminari-i18n'
+
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 

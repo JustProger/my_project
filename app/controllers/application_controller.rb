@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# ApplicationController description ...
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
@@ -16,10 +17,16 @@ class ApplicationController < ActionController::Base
     redirect_to '/logout'
   end
 
-  helper_method :current_user
+  def current_user_id
+    current_user&.id
+  end
+
+  helper_method :current_user, :current_user_id
 
   def authorize
-    redirect_to '/login' unless current_user
+    return if current_user
+
+    redirect_to '/login', alert: 'Login required!'
   end
 
   def deny_access_to_authorized

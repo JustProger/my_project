@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# CommentsController description ...
 class CommentsController < ApplicationController
   before_action :authorize
   def new
@@ -22,7 +23,8 @@ class CommentsController < ApplicationController
   def update
     @comment = Comment.find(params[:id])
     if @comment.update(comment_params_for_update)
-      redirect_to posts_show_path(id: @comment.post_id), notice: 'Comment on this post was successfully updated!'
+      redirect_to posts_show_path(id: @comment.post_id),
+                  notice: 'Comment on this post was successfully updated!'
     else
       redirect_to request.referer, alert: 'smth went wrong:('
     end

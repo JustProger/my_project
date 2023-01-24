@@ -28,6 +28,7 @@ Rails.application.routes.draw do
 
   delete 'posts/remove'
   delete 'comments/remove'
+  delete 'users/remove'
 
   root   'posts#last'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Post < ApplicationRecord
+  paginates_per 3
+
   belongs_to :user
   has_many :comments, dependent: :destroy
 

@@ -8,9 +8,9 @@
         <label><%= t('name')+':' %></label>
         <label>
           <% begin %>
-            <%= '@'+user.name.downcase %>
+            <%= link_to "#{user.name}", users_profile_path(id: user.id) %>
           <% rescue %>
-            <%= '@'+'user_name_error' %>
+            <%= 'user_name_error' %>
           <% end %>
         </label>
       </div>
@@ -38,7 +38,7 @@
       </div>
     </div>
 
-    <% if (user.id == current_user.id) %>
+    <% if (user.id == current_user_id) %>
       <div class='col-sm-auto row align-items-center'>
         <div class='col-sm-auto' style='padding-left: 0'>
           <%= link_to users_edit_path(id: user.id, user_id: current_user.id), class: "btn btn-info" do %>
@@ -55,7 +55,7 @@
         </div>
 
         <div class='col-sm-auto' style='padding-left: 0'>
-          <%= button_to posts_remove_path(id: user.id, user_id: current_user.id), method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-danger" do %>
+          <%= button_to users_remove_path(id: user.id, user_id: current_user.id), method: :delete, data: {confirm: 'Delete user. Are you sure?'}, id="users_list_delete_user_btn" class: "btn btn-danger" do %>
               <div class="row align-items-center">
                 <div class="col-sm-auto pl-2 pr-2">
                   <i class="bi-trash"></i>

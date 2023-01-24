@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# PostsController description ...
 class PostsController < ApplicationController
   before_action :authorize
 
@@ -55,7 +56,8 @@ class PostsController < ApplicationController
   end
 
   def last
-    @post = Post.last(10).reverse
+    # @posts = Post.last(10).reverse
+    @posts = Post.order(clicks: :desc).page params[:page]
   end
 
   private

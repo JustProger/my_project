@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
+# UsersController description ...
 class UsersController < ApplicationController
   before_action :deny_access_to_authorized, only: %i[new create]
-  before_action :authorize, only: %i[profile]
+  before_action :authorize
+  skip_before_action :authorize, only: %i[profile index new create]
 
   def index
     @users = User.all
@@ -36,6 +38,18 @@ class UsersController < ApplicationController
         end
       end
       redirect_to request.referer
+    end
+  end
+
+  # DELETE method
+  def remove
+    user = User.find(params[:id])
+    if user.id == params[:user_id].to_i
+      session[:user_id] = nil
+      user.destroy
+      redirect_to '/logout', notice: 'User was successfully deleted!'
+    else
+      redirect_to request.referer, alert: 'You don\'t have permit!'
     end
   end
 
