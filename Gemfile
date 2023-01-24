@@ -60,6 +60,8 @@ gem 'sassc-rails'
 gem 'kaminari'
 # Перевод сообщений (далее/на предыдущую/первая/последняя).
 gem 'kaminari-i18n'
+# Чтобы to_xml работал как надо.
+gem 'activemodel-serializers-xml'
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"

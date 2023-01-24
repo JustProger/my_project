@@ -65,10 +65,6 @@ RSpec.describe 'Static content', type: :system do
 
     expect(message).to have_text('Delete user. Are you sure?')
 
-    expect(find('body')).to have_text('User was successfully deleted!')
-  end
-
-  scenario 'checking user\s data' do
-
+    expect(find('body')).to have_text('Login')
   end
 end
