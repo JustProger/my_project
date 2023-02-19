@@ -3,6 +3,8 @@
 # PostsController description ...
 class PostsController < ApplicationController
   before_action :authorize
+  skip_before_action :authorize, only: %i[last]
+  before_action :authorize_for_posts_last
 
   def new
     @post = Post.new

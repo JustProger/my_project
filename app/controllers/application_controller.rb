@@ -29,6 +29,12 @@ class ApplicationController < ActionController::Base
     redirect_to '/login', alert: 'Login required!'
   end
 
+  def authorize_for_posts_last
+    return if current_user
+
+    redirect_to '/login'
+  end
+
   def deny_access_to_authorized
     redirect_to root_path if current_user
   end
